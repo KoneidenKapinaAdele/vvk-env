@@ -1,0 +1,15 @@
+- hosts: all
+  remote_user: ec2-user
+  become: yes
+  become_method: sudo
+ 
+  vars:
+    download_url: http://download.oracle.com/otn-pub/java/jdk/8u5-b13/jdk-8u5-linux-x64.tar.gz
+    download_folder: /opt
+    java_name: "{{download_folder}}/jdk1.8.0_05"
+    java_archive: "{{download_folder}}/jdk-8u5-linux-x64.tar.gz"
+
+  roles:
+     - install-jdk8
+     - install-vvk
+     - environment 

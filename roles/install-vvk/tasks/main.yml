@@ -1,0 +1,20 @@
+  - name: install git
+    yum: name=git state=latest
+
+  - name: add maven yum repository
+    get_url: url=http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo dest=/etc/yum.repos.d/epel-apache-maven.repo
+
+  - name: replace version number
+    shell: sed -i s/\$releasever/6/g /etc/yum.repos.d/epel-apache-maven.repo
+
+  - name: install maven
+    yum: name=apache-maven state=installed
+
+  - name: get VVK
+    git: repo=https://github.com/KoneidenKapinaAdele/vvk-back.git
+         dest=/vvk/checkout
+         version=AWS
+
+  - name: compile VVK
+    shell: cd /vvk/checkout && mvn clean package 
+ 
